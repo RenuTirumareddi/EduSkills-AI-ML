@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.exception.CustomerNotFoundException;
 import com.model.Customer;
 import com.service.CustomerService;
 import jakarta.validation.Valid;
@@ -26,8 +27,12 @@ public class CustomerController {
     // View customer by ID
     @GetMapping("/view/{id}")
     public ResponseEntity<Customer> viewCustomerById(@PathVariable("id") String customerId) {
-        Customer customer = customerService.viewCustomerById(customerId);
-        return ResponseEntity.ok(customer);
+        try {
+            Customer customer = customerService.viewCustomerById(customerId);
+            return ResponseEntity.ok(customer);
+        } catch (CustomerNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // View customers by tier
@@ -40,14 +45,22 @@ public class CustomerController {
     // Increment loyalty points
     @PutMapping("/incrementPoints/{id}")
     public ResponseEntity<String> incrementLoyaltyPoints(@PathVariable("id") String customerId) {
-        customerService.incrementLoyaltyPoints(customerId);
-        return ResponseEntity.ok("Loyalty points incremented");
+        try {
+            customerService.incrementLoyaltyPoints(customerId);
+            return ResponseEntity.ok("Loyalty points incremented");
+        } catch (CustomerNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // Delete customer
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") String customerId) {
-        customerService.deleteCustomer(customerId);
-        return ResponseEntity.ok("Customer deleted successfully");
+        try {
+            customerService.deleteCustomer(customerId);
+            return ResponseEntity.ok("Customer deleted successfully");
+        } catch (CustomerNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

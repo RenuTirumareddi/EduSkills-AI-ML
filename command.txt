@@ -1,0 +1,12 @@
+# Git Commands for Repository Setup
+
+# 1) Initialize git
+git init
+
+# 2) Clone the repository from the URL with credentials
+# Clone from "master" branch ONLY
+# URL: http://localhost:9080/student1/test1.git
+# Username: student1
+# Password: studentpassword
+
+git clone -b master http://student1:studentpassword@localhost:9080/student1/test1.git

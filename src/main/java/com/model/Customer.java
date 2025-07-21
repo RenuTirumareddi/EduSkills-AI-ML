@@ -1,44 +1,52 @@
 package com.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
+import java.time.LocalDate;
 
 public class Customer {
     
-    @NotBlank(message = "Customer ID cannot be blank")
+    @NotBlank(message = "Provide value for customer id")
     private String customerId;
     
-    @NotBlank(message = "Customer name cannot be blank")
-    private String customerName;
+    @NotBlank(message = "Provide value for name")
+    private String name;
     
-    @NotBlank(message = "Email cannot be blank")
-    @Email(message = "Email should be valid")
+    @NotBlank(message = "Invalid email format")
+    @Email(message = "Invalid email format")
     private String email;
     
-    @NotBlank(message = "Phone number cannot be blank")
-    @Pattern(regexp = "^[0-9]{10}$", message = "Phone number should be 10 digits")
-    private String phoneNumber;
+    @NotBlank(message = "Mobile Number should be a 10-digit number")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Mobile Number should be a 10-digit number")
+    private String mobileNumber;
     
-    @NotNull(message = "Loyalty points cannot be null")
+    @NotBlank(message = "Provide value for city")
+    private String city;
+    
+    @PastOrPresent(message = "Registration date cannot be in the future")
+    private LocalDate registrationDate;
+    
+    @Min(value = 0, message = "Loyalty points should be greater than or equal to zero")
     private Integer loyaltyPoints;
     
-    @NotBlank(message = "Tier cannot be blank")
-    @Pattern(regexp = "^(Gold|Silver|Bronze)$", message = "Tier must be Gold, Silver, or Bronze")
+    @NotBlank(message = "Tier must be Gold, Silver, or Platinum")
+    @Pattern(regexp = "^(Gold|Silver|Platinum)$", message = "Tier must be Gold, Silver, or Platinum")
     private String tier;
 
     // Default constructor
     public Customer() {
         this.loyaltyPoints = 0;
+        this.registrationDate = LocalDate.now();
     }
 
     // Parameterized constructor
-    public Customer(String customerId, String customerName, String email, String phoneNumber, Integer loyaltyPoints, String tier) {
+    public Customer(String customerId, String name, String email, String mobileNumber, String city, 
+                   LocalDate registrationDate, Integer loyaltyPoints, String tier) {
         this.customerId = customerId;
-        this.customerName = customerName;
+        this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.mobileNumber = mobileNumber;
+        this.city = city;
+        this.registrationDate = registrationDate != null ? registrationDate : LocalDate.now();
         this.loyaltyPoints = loyaltyPoints != null ? loyaltyPoints : 0;
         this.tier = tier;
     }
@@ -52,12 +60,12 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -68,12 +76,28 @@ public class Customer {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     public Integer getLoyaltyPoints() {
@@ -96,9 +120,11 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "customerId='" + customerId + '\'' +
-                ", customerName='" + customerName + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
+                ", mobileNumber='" + mobileNumber + '\'' +
+                ", city='" + city + '\'' +
+                ", registrationDate=" + registrationDate +
                 ", loyaltyPoints=" + loyaltyPoints +
                 ", tier='" + tier + '\'' +
                 '}';

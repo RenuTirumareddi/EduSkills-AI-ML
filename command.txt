@@ -1,0 +1,16 @@
+# Git Commands for Pull and Merge Activity
+
+# 1) Command to display current branch name (to ensure you are in master branch)
+git branch --show-current
+
+# 2) Pull the DEV_payment branch from remote origin
+git fetch origin DEV_payment
+
+# 3) Switch to DEV_payment branch using checkout (remote files must be added to local branch)
+git checkout -b DEV_payment origin/DEV_payment
+
+# 4) Switch to DEV_feature branch using checkout
+git checkout DEV_feature
+
+# 5) Merge the DEV_feature branch with the DEV_payment branch
+git merge DEV_payment

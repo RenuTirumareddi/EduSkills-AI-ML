@@ -1,7 +1,7 @@
 # Git Commands for Pull and Merge Activity
 
 # 1) Command to display current branch name (to ensure you are in master branch)
-git branch --show-current
+git branch
 
 # 2) Pull the DEV_payment branch from remote origin
 git fetch origin DEV_payment
